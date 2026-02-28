@@ -1,0 +1,71 @@
+<footer class="footer page-width" role="contentinfo">
+  <div class="footer__content-top">
+    {%- if section.settings.menu != blank -%}
+      <nav class="footer__nav" aria-label="{{ 'footer.title' | t }}">
+        <ul class="footer__nav-list list-unstyled" role="list">
+          {%- for link in linklists[section.settings.menu].links -%}
+            <li class="footer__nav-item">
+              <a href="{{ link.url }}" class="footer__nav-link">{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    {%- if section.settings.show_social -%}
+      <div class="footer__social">
+        {%- if settings.social_instagram_link != blank -%}
+          <a href="{{ settings.social_instagram_link }}" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            Instagram
+          </a>
+        {%- endif -%}
+        {%- if settings.social_facebook_link != blank -%}
+          <a href="{{ settings.social_facebook_link }}" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            Facebook
+          </a>
+        {%- endif -%}
+        {%- if settings.social_twitter_link != blank -%}
+          <a href="{{ settings.social_twitter_link }}" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            Twitter
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="footer__content-bottom">
+    <p class="footer__copyright caption">
+      &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}
+      {{ powered_by_link }}
+    </p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "limit": 1,
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "footer",
+      "label": "Footer menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "default": true,
+      "label": "Show social media icons"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}

@@ -2,12 +2,15 @@
 
 ## Project Overview
 
-Custom Shopify theme built from scratch using Online Store 2.0 architecture.
+Custom Shopify store theme based on **Dawn** (Shopify's official OS 2.0 reference theme).
 Target store: [YOUR-STORE].myshopify.com
+
+Dawn is Shopify's free, open-source Online Store 2.0 theme — lightweight, fast (Lighthouse 90+ mobile), and fully customizable.
 
 ## Tech Stack
 
 - Shopify Online Store 2.0 (Liquid templating)
+- **Base theme: Dawn** (Shopify's default OS 2.0 theme)
 - Shopify CLI 3.x
 - Node.js 18.20+ / npm
 - Git for version control
@@ -24,8 +27,12 @@ Target store: [YOUR-STORE].myshopify.com
 
 1. Install Shopify CLI: `npm install -g @shopify/cli @shopify/theme`
 2. Authenticate: `shopify auth login --store YOUR-STORE.myshopify.com`
-3. Initialize theme skeleton: `shopify theme init` (clones Dawn as starting point)
-4. Start dev server: `shopify theme dev --store YOUR-STORE.myshopify.com`
+3. Start dev server (push local files + hot reload): `shopify theme dev --store YOUR-STORE.myshopify.com`
+
+To start fresh from the latest Dawn instead:
+```bash
+shopify theme init   # clones Dawn from GitHub into a new folder
+```
 
 ## Key Commands
 
@@ -60,39 +67,57 @@ theme = "111111111"
 
 Deploy to a specific environment: `shopify theme push --environment production`
 
-## Theme Folder Structure (OS 2.0)
+## Theme Folder Structure (OS 2.0 / Dawn)
 
 ```
 ├── assets/              # CSS, JS, images, fonts (served as-is)
+│   ├── base.css         # Global base styles
+│   ├── component-*.css  # Per-component stylesheets
+│   └── global.js        # Global JS (cart, modals, etc.)
 ├── config/
 │   ├── settings_schema.json   # Theme customizer settings definition
 │   └── settings_data.json     # Live store customizer values (gitignored)
 ├── layout/
 │   └── theme.liquid           # Base HTML layout wrapping all pages
-├── locales/                   # Translation JSON files (en.default.json, etc.)
+├── locales/                   # Translation JSON files
+│   └── en.default.json        # Default English strings
 ├── sections/                  # Page sections (.liquid) with {% schema %} blocks
+│   ├── header.liquid
+│   ├── footer.liquid
+│   ├── announcement-bar.liquid
+│   └── ...
 ├── snippets/                  # Reusable Liquid partials ({% render 'name' %})
-├── templates/                 # JSON or .liquid templates for each page type
+├── templates/                 # JSON templates for each page type
 │   ├── index.json             # Homepage
 │   ├── product.json           # Product pages
 │   ├── collection.json        # Collection listing pages
 │   ├── cart.json              # Cart page
 │   ├── page.json              # Static pages
+│   ├── blog.json              # Blog listing
+│   ├── article.json           # Blog post
 │   └── 404.json               # 404 error page
 ├── .gitignore
-├── .shopifyignore             # Files excluded from Shopify (like .gitignore for CLI)
+├── .shopifyignore             # Files excluded from Shopify CLI push
 └── shopify.theme.toml         # Environment config (gitignored)
 ```
 
+## Dawn Customization Approach
+
+- **Avoid forking Dawn files you don't need to change** — only add/edit what differs from stock Dawn
+- Use the **theme customizer** (Shopify admin → Online Store → Themes → Customize) for layout/content changes where possible
+- Add new sections in `sections/` rather than editing Dawn's existing sections
+- Add new snippets in `snippets/` for reusable partials
+- Override styles by editing `assets/base.css` or adding new CSS files
+- Use **app blocks** for third-party integrations — do not edit `theme.liquid` directly
+
 ## Liquid Conventions
 
-- Use `{% render 'snippet-name' %}` — never `{% include %}` (deprecated)
-- Section customizer settings defined via `{% schema %}...{% endschema %}` at bottom of section file
+- Use `{% render 'snippet-name' %}` — never `{% include %}` (deprecated in OS 2.0)
+- Section customizer settings defined via `{% schema %}...{% endschema %}` at bottom of each section file
 - Templates are JSON-based (OS 2.0); they reference sections by name
 - Load assets via filters: `{{ 'styles.css' | asset_url | stylesheet_tag }}`
 - Base layout (`layout/theme.liquid`) must include `{{ content_for_header }}` and `{{ content_for_layout }}`
 - Use metafields for dynamic per-product/collection/page data
-- App integrations belong in app blocks — do not add third-party scripts directly to `theme.liquid`
 - Sections: max 25 per template; blocks: max 1,250 per template
 
 ## Secrets & Security
@@ -151,6 +176,7 @@ jobs:
 
 ## AI Assistance Notes
 
+- This theme is **Dawn-based** — always check if Dawn already handles something before building from scratch
 - Always use OS 2.0 JSON templates — not legacy `.liquid` templates — unless explicitly asked otherwise
 - Prefer `{% render %}` over `{% include %}` (deprecated and removed in OS 2.0)
 - Keep sections self-contained with their own `{% schema %}` block

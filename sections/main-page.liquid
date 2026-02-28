@@ -1,0 +1,22 @@
+<div class="page-width">
+  <article class="article-template">
+    <header class="article-template__header">
+      <h1 class="article-template__title">{{ page.title }}</h1>
+    </header>
+    <div class="article-template__content rte">
+      {{ page.content }}
+    </div>
+  </article>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Page"
+    }
+  ]
+}
+{% endschema %}

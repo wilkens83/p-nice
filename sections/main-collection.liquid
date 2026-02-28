@@ -1,0 +1,70 @@
+<div class="collection page-width">
+  {%- if collection.title -%}
+    <h1 class="collection__title">{{ collection.title }}</h1>
+  {%- endif -%}
+
+  {%- if collection.description != blank -%}
+    <div class="collection__description rte">{{ collection.description }}</div>
+  {%- endif -%}
+
+  {%- if collection.products_count > 0 -%}
+    <ul class="product-grid grid grid--{{ section.settings.columns_desktop }}-col-desktop list-unstyled" role="list">
+      {%- for product in collection.products limit: section.settings.products_per_page -%}
+        <li class="grid__item">
+          {% render 'card-product', card_product: product %}
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" aria-label="Pagination">
+        {%- if paginate.previous -%}
+          <a href="{{ paginate.previous.url }}" class="pagination__item pagination__item--prev">Previous</a>
+        {%- endif -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}" class="pagination__item">{{ part.title }}</a>
+          {%- else -%}
+            <span class="pagination__item pagination__item--current">{{ part.title }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if paginate.next -%}
+          <a href="{{ paginate.next.url }}" class="pagination__item pagination__item--next">Next</a>
+        {%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- else -%}
+    <p class="collection__no-results">No products found in this collection.</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24,
+      "label": "Products per page"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection"
+    }
+  ]
+}
+{% endschema %}

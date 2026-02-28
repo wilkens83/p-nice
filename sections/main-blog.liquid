@@ -1,0 +1,46 @@
+<div class="blog page-width">
+  <h1 class="blog__title">{{ blog.title }}</h1>
+
+  {%- if blog.articles_count > 0 -%}
+    <ul class="blog__list article-grid grid grid--2-col-tablet-down grid--3-col-desktop list-unstyled" role="list">
+      {%- for article in blog.articles -%}
+        <li class="grid__item article-card-wrapper">
+          <article class="article-card">
+            {%- if article.image -%}
+              <a href="{{ article.url }}" class="article-card__image-wrapper">
+                {{ article.image | image_url: width: 600 | image_tag:
+                  loading: 'lazy',
+                  widths: '300, 400, 600',
+                  class: 'article-card__image'
+                }}
+              </a>
+            {%- endif -%}
+            <div class="article-card__info">
+              <h2 class="article-card__title h3">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </h2>
+              {%- if article.excerpt_or_content != blank -%}
+                <p class="article-card__excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+              {%- endif -%}
+              <a href="{{ article.url }}" class="article-card__link">{{ 'blogs.article.read_more' | t }}</a>
+            </div>
+          </article>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- else -%}
+    <p>No posts published yet.</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Blog posts"
+    }
+  ]
+}
+{% endschema %}

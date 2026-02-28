@@ -1,0 +1,75 @@
+<article class="article-template page-width" itemscope itemtype="http://schema.org/BlogPosting">
+  {%- if article.image -%}
+    <div class="article-template__hero-container">
+      {{ article.image | image_url: width: 1200 | image_tag:
+        loading: 'lazy',
+        widths: '600, 900, 1200',
+        class: 'article-template__image'
+      }}
+    </div>
+  {%- endif -%}
+
+  <header class="article-template__header">
+    <h1 class="article-template__title" itemprop="headline">{{ article.title }}</h1>
+    <div class="article-template__meta">
+      {%- if section.settings.show_date -%}
+        <span class="article-template__date" itemprop="datePublished dateCreated">
+          {{ article.published_at | date: format: 'date' }}
+        </span>
+      {%- endif -%}
+      {%- if section.settings.show_author -%}
+        <span class="article-template__author" itemprop="author">{{ article.author }}</span>
+      {%- endif -%}
+    </div>
+  </header>
+
+  <div class="article-template__content rte" itemprop="articleBody">
+    {{ article.content }}
+  </div>
+
+  {%- if blog.comments_enabled? -%}
+    <div class="article-template__comments" id="comments">
+      {%- if article.comments_count > 0 -%}
+        <h2>{{ article.comments_count }} {{ 'general.meta.page' | t: page: '' }}</h2>
+        {%- for comment in article.comments -%}
+          <div class="article-template__comment">
+            <h3>{{ comment.author }}</h3>
+            <p class="caption">{{ comment.created_at | date: format: 'date' }}</p>
+            <p>{{ comment.content }}</p>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="article-template__back">
+    <a href="{{ blog.url }}" class="article-template__back-link link animated-link">
+      {{ 'blogs.article.back_to_blog' | t: blog_name: blog.title }}
+    </a>
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Blog post",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "Show date"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": true,
+      "label": "Show author"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog post"
+    }
+  ]
+}
+{% endschema %}

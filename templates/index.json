@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "settings": {
+        "heading": "Shop our latest",
+        "subheading": "Find something you love",
+        "button_label": "Shop now",
+        "button_link": ""
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured collection",
+        "collection": ""
+      }
+    }
+  },
+  "order": ["image_banner", "featured_collection"]
+}

@@ -1,0 +1,78 @@
+<div class="cart page-width">
+  <h1 class="cart__title">{{ 'cart.title' | t }}</h1>
+
+  {%- if cart.item_count > 0 -%}
+    {%- form 'cart', cart, id: 'cart' -%}
+      <div class="cart__items">
+        {%- for item in cart.items -%}
+          <div class="cart__item" id="CartItem-{{ item.index | plus: 1 }}">
+            <div class="cart__item-image">
+              {%- if item.image -%}
+                {{ item.image | image_url: width: 300 | image_tag:
+                  loading: 'lazy',
+                  widths: '100, 150, 300',
+                  class: 'cart__item-img'
+                }}
+              {%- endif -%}
+            </div>
+
+            <div class="cart__item-details">
+              <h3 class="cart__item-title">
+                <a href="{{ item.url }}">{{ item.product.title }}</a>
+              </h3>
+
+              {%- unless item.product.has_only_default_variant -%}
+                <p class="cart__item-variant">{{ item.variant.title }}</p>
+              {%- endunless -%}
+
+              <p class="cart__item-price">{{ item.final_price | money }}</p>
+
+              <div class="cart__item-quantity">
+                <label for="Quantity-{{ item.index | plus: 1 }}">{{ 'cart.item.quantity.label' | t }}</label>
+                <input
+                  type="number"
+                  id="Quantity-{{ item.index | plus: 1 }}"
+                  name="updates[]"
+                  value="{{ item.quantity }}"
+                  min="0"
+                  class="quantity__input"
+                  aria-label="{{ 'cart.item.quantity.label' | t }}"
+                >
+              </div>
+
+              <a href="{{ item.url_to_remove }}" class="cart__item-remove">{{ 'cart.remove' | t }}</a>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="cart__footer">
+        <div class="cart__total">
+          <span>{{ 'cart.subtotal' | t }}</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <p class="cart__taxes-note">{{ 'cart.taxes_and_shipping_policy_at_checkout_html' | t }}</p>
+        <button type="submit" name="checkout" class="cart__checkout-button button button--primary">
+          {{ 'cart.checkout' | t }}
+        </button>
+      </div>
+    {%- endform -%}
+  {%- else -%}
+    <div class="cart__empty">
+      <p>{{ 'cart.empty' | t }}</p>
+      <a href="{{ routes.root_url }}" class="button">{{ 'actions.continue_shopping' | t }}</a>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Cart"
+    }
+  ]
+}
+{% endschema %}
