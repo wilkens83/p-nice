@@ -7,6 +7,81 @@ Target store: [YOUR-STORE].myshopify.com
 
 Dawn is Shopify's free, open-source Online Store 2.0 theme — lightweight, fast (Lighthouse 90+ mobile), and fully customizable.
 
+---
+
+## Brand & Design Direction
+
+This store is in the **premium beauty / personal care** space. All design decisions should reinforce a professional, luxurious, and trustworthy aesthetic. Two reference brands define the target look and feel:
+
+### Reference 1 — Nathalia (Luxury Perfume)
+Drives the **warmth, elegance, and emotional storytelling** direction.
+
+- **Color palette:** Warm cream/beige (`#f5f0e8`) background · Deep charcoal/near-black (`#1a1a1a`) for contrast sections · Gold/amber accents for premium feel
+- **Typography:** Elegant serif headlines (e.g. Cormorant Garamond) · Cursive/script for brand name · Clean refined sans-serif for body copy
+- **Tone:** Emotional, feminine, aspirational — "Unveil Your True Essence"
+- **Social proof:** Milestone stat badge ("50k+ Satisfied") in the hero
+
+### Reference 2 — Resvina (Skincare)
+Drives the **cleanliness, trust, and science-backed credibility** direction.
+
+- **Color palette:** Pure white (`#ffffff`) primary · Olive/forest green accent · Near-black for CTAs and text sections · Light grey/cream for alternating section backgrounds
+- **Typography:** Bold modern sans-serif or slab-serif headlines · Clinical-clean body copy
+- **Tone:** Confident, credible, results-focused — "Confidence Starts with Clear Skin"
+- **Trust signals:** "98% Natural Ingredients" badge · Dermatologically tested claims · Ingredient science callout
+
+### Combined Design System for p-nice
+
+| Token | Value |
+|---|---|
+| Primary bg | Warm cream/white |
+| Dark contrast bg | Deep charcoal `#1a1a1a` |
+| Brand accent | Gold/olive blend — choose one per product line |
+| Headline font | Elegant serif (Cormorant Garamond or Playfair Display) |
+| Body font | Clean sans-serif (Inter or DM Sans) |
+| Script/logo font | Cursive accent font for brand mark only |
+| Button style | Solid dark or outlined; no rounded pill — square or slightly rounded corners |
+| Imagery | Professional product photography, warm lighting, clean backgrounds |
+
+---
+
+## Homepage Section Structure
+
+Build the homepage in this exact section order, matching the patterns from both reference brands:
+
+1. **Announcement Bar** — Promo offer (e.g. "Get 20% Off Your First Order") · Link to collections
+2. **Hero** — Full-width · Headline (serif, large) · Subheadline · Primary CTA button · Trust badge (e.g. "98% Natural Ingredients" or "50k+ Happy Customers")
+3. **Brand Promise** — Short centered text block reinforcing brand values; 1–3 sentences max
+4. **Category Discovery** — 3-column cards linking to main product categories (e.g. Body Care, Serums, Creams)
+5. **Product Grid — Best Sellers** — 3–4 column product grid, min 4 products; labeled "Best Sellers" or "Our Bestsellers"
+6. **Feature/Benefits Section** — "Crafted for…" or "Why Choose Us" · 3 icons + short copy · Light background
+7. **Dark Product Carousel** — Dark (`#1a1a1a`) background · "Best Variant For You" or similar headline · Horizontal scrollable product cards
+8. **Ingredient/Science Section** — "Powered by Nature, Perfected by Science" · Highlight 1–2 key ingredients with imagery
+9. **Testimonials** — "Real Stories, Real Results" · Customer photo + quote grid (min 3) · Star ratings
+10. **Full-Width CTA Banner** — Strong brand statement or discount offer · Single CTA button ("Shop Now" or "Own It Today")
+11. **Footer** — Dark background · Logo · Navigation links · Social icons (Instagram, Facebook, X/Twitter, TikTok)
+
+---
+
+## UI/UX Patterns to Follow
+
+- **Product cards:** Clean white card · Product image (square crop) · Product name · Price · Hover state with quick-add button
+- **Section spacing:** Generous vertical padding (80–120px desktop, 48–64px mobile) — never cramped
+- **Social proof badges:** Display milestone stats ("50k+ Customers", "4.9★ Rating") near the hero and CTA sections
+- **Dark sections:** Use `#1a1a1a` or near-black for 2–3 sections to create visual contrast rhythm
+- **Trust signals:** Show ingredient claims, dermatologist-tested badges, and return policy near product grids
+- **Mobile:** Stack all multi-column layouts to single column; keep CTA buttons full-width on mobile
+- **Testimonials:** Always include real customer photos alongside quotes; use a grid or carousel layout
+
+---
+
+## Content & Copywriting Guidelines
+
+- Headlines: Short, evocative, emotion-first (max 6 words for hero)
+- Subheadlines: Benefit-focused, one clear value prop per section
+- CTAs: Action verbs — "Shop Now", "Discover Your Scent", "Own It Today" — never just "Click Here"
+- Product descriptions: Lead with the benefit, follow with the ingredient/science, close with a sensory detail
+- Avoid generic placeholder copy — every section should have intentional, on-brand language
+
 ## Tech Stack
 
 - Shopify Online Store 2.0 (Liquid templating)
@@ -185,3 +260,15 @@ jobs:
 - Run `shopify theme check` before considering any theme change complete
 - Do not modify `config/settings_data.json` — this contains live store settings
 - When adding new customizer settings, add them to `config/settings_schema.json`
+
+### Design-Specific AI Rules
+
+- Always follow the **Homepage Section Structure** order defined above — do not reorder or skip sections
+- When building or editing sections, apply the **Design System tokens** (colors, fonts, spacing) — never use arbitrary values
+- New sections must match the visual rhythm: alternate between light (cream/white) and dark (`#1a1a1a`) backgrounds
+- Product grids use a **3 or 4 column layout on desktop**, always collapsing to 1 column on mobile
+- Every CTA section must include a **trust signal** (stat, badge, or claim) near the button
+- Testimonials must include **customer photos** — do not build text-only review sections
+- The **hero section always has a trust badge** below or beside the CTA button
+- Font choices: use only the approved serif/sans-serif pair — do not introduce additional typefaces
+- Icon style: use simple, line-based icons consistent with the clean premium aesthetic — no filled cartoon icons
