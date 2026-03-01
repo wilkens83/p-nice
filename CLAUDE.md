@@ -101,13 +101,110 @@ Deploy to a specific environment: `shopify theme push --environment production`
 └── shopify.theme.toml         # Environment config (gitignored)
 ```
 
+## Store Design Direction
+
+This store is a **beauty/lifestyle brand** (fragrance or skincare). The design references below define the visual language and required page sections.
+
+### Design References
+
+**Reference A — Nathalia (Perfume Brand)**
+Elegant, feminine, warm aesthetic targeting modern women. Key patterns:
+- Large hero with woman model image, serif headline, cream/beige background
+- Social proof badge: "Satisfied by 50k Buyers" near the hero CTA
+- Product grid: 3-column, each card has **ADD TO CART** + **BUY NOW** dual buttons
+- Brand story section: side-by-side image + text paragraph
+- Features section: "Crafted for the Modern Woman" — 3 icon + title + description blocks
+- **Dark full-width section** (near-black bg) for "BEST VARIANT FOR YOU" product selector
+- Testimonials: "Stories from Nathalia Wearers" — horizontal card row
+- Closing CTA banner: italicized quote + uppercase button ("OWN YOUR NATHALIA TODAY")
+- Footer: brand name large, social icons (Instagram, Facebook, X, TikTok), nav links
+
+**Reference B — Resvina (Skincare Brand)**
+Clean, clinical-minimal aesthetic. Key patterns:
+- Hero: product + model image, bold sans-serif headline, "99% Natural Ingredients" badge
+- Social proof badge: "Satisfied by 1k Users" inline below headline
+- About text section: single paragraph brand statement
+- Category tiles: parenthetical heading `(Discover Resvina By Category)` + 3 image tiles
+- Best Sellers: 4-column product grid, 8 products, price + add-to-cart
+- Numbered benefits: "(1) Dermatologically tested… (2) Rich in flavonoids… (3) Helps reduce…"
+- Ingredients callout: "Powered by Nature, Perfected by Science" — single ingredient hero card
+- Testimonials: "Real Stories, Real Result" — single large quote card
+- Dark footer: discount CTA ("Get 20% Off Your First Purchase"), newsletter input, social links, nav
+
+### Color System
+
+| Token | Value | Usage |
+|---|---|---|
+| `--color-cream` | `#F8F4EE` | Primary background (warm cream) |
+| `--color-dark` | `#1A1A1A` | Primary text + dark section bg |
+| `--color-accent` | `#C9A96E` | Gold/warm accent, buttons, badges |
+| `--color-mid` | `#6D6D6D` | Secondary text, captions |
+| `--color-white` | `#FFFFFF` | Cards, light sections |
+| `--color-badge-bg` | `#F0EAE0` | Social proof badge background |
+
+### Typography System
+
+| Role | Style |
+|---|---|
+| Brand headlines | Serif font (e.g. Playfair Display), large scale, normal weight |
+| Section headings | Serif or elegant sans, mixed case |
+| Body text | Clean sans-serif, 1.5–1.6 line height |
+| Buttons / labels | Uppercase, sans-serif, tracked |
+| Parenthetical headings | e.g. `(Section Title)` — Resvina style |
+
+### Required Homepage Sections (in order)
+
+| Section file | Description |
+|---|---|
+| `announcement-bar.liquid` | Promo banner at top |
+| `header.liquid` | Logo + nav + cart icon |
+| `hero-social-proof.liquid` | Large hero image, headline, subheadline, social proof badge, CTA button |
+| `brand-story.liquid` | Image (left) + brand paragraph (right), or reversed |
+| `featured-collection.liquid` | Product grid with dual-button cards (ADD TO CART + BUY NOW) |
+| `features-grid.liquid` | Icon/number + heading + description, 3 columns |
+| `category-tiles.liquid` | 3 category image tiles with label overlay |
+| `dark-variant-cta.liquid` | Full-width dark bg section — product variant selector or bold CTA |
+| `ingredients-callout.liquid` | "Powered by Nature" — ingredient highlight with image/icon |
+| `testimonials.liquid` | Customer review cards (horizontal scroll or grid) |
+| `cta-banner.liquid` | Full-width CTA with italic quote + uppercase button |
+| `footer.liquid` | Social icons, nav links, newsletter input, copyright |
+
+### Product Card Conventions
+
+Every product card (`snippets/card-product.liquid`) must include:
+- Product image (square crop, lazy loaded)
+- Product name
+- Price (with compare-at price struck through if on sale)
+- "Sold out" badge if unavailable
+- **Two buttons**: primary "ADD TO CART" + secondary "BUY NOW" (links to product page)
+- Sale badge if `compare_at_price > price`
+
+### Social Proof Badge Pattern
+
+Used in hero and potentially collection banners:
+```liquid
+<div class="social-proof-badge">
+  <span class="social-proof-badge__icon">★</span>
+  <span class="social-proof-badge__text">Satisfied by {{ section.settings.buyer_count }} Buyers</span>
+</div>
+```
+The badge is a pill/rounded shape with `--color-badge-bg` background.
+
+### Section Schema Conventions
+
+- Every section must have `"name"` and `"presets"` in its `{% schema %}`
+- Text content (headlines, body, button labels) must be editable via schema settings
+- Images use `image_picker` type so merchants can swap them in the customizer
+- Color overrides (e.g. dark vs light bg variant) use `select` or `checkbox` settings
+- All heading/body strings should reference `locales/en.default.json` keys where reused
+
 ## Dawn Customization Approach
 
 - **Avoid forking Dawn files you don't need to change** — only add/edit what differs from stock Dawn
 - Use the **theme customizer** (Shopify admin → Online Store → Themes → Customize) for layout/content changes where possible
 - Add new sections in `sections/` rather than editing Dawn's existing sections
 - Add new snippets in `snippets/` for reusable partials
-- Override styles by editing `assets/base.css` or adding new CSS files
+- Override styles by editing `assets/base.css` or adding new CSS files per component
 - Use **app blocks** for third-party integrations — do not edit `theme.liquid` directly
 
 ## Liquid Conventions
@@ -185,3 +282,18 @@ jobs:
 - Run `shopify theme check` before considering any theme change complete
 - Do not modify `config/settings_data.json` — this contains live store settings
 - When adding new customizer settings, add them to `config/settings_schema.json`
+
+### Design Implementation Rules
+
+- **Color tokens** must use CSS custom properties (`--color-cream`, `--color-dark`, etc.) — never hardcode hex values in CSS outside of `:root`
+- **Hero sections** always include a social proof badge (buyer count, star rating, or trust badge)
+- **Product cards** always show dual-button pattern: primary "ADD TO CART" + secondary "BUY NOW"
+- **Dark sections** (`dark-variant-cta`, footer CTA) use `--color-dark` (#1A1A1A) background with white text
+- **Headings** in hero and brand-story sections use serif font family; body and UI labels use sans-serif
+- **Testimonials** section must show customer name, review text, and optional star rating
+- **Features/benefits** blocks: use either icon + title + text (Nathalia style) or numbered `(1) (2) (3)` format (Resvina style) — choose one per project
+- **Category tiles** use image backgrounds with text overlay; never plain text links
+- **CTA banners** use italic or serif quote text paired with an uppercase button label
+- **Footer** must include: brand name/logo, nav links, social icons (Instagram, Facebook, TikTok at minimum), copyright
+- **Newsletter** input in footer if targeting skincare/subscription audience
+- Sections must be fully configurable from the Shopify customizer — zero hardcoded copy in Liquid
