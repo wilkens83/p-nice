@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "skills": {
+    "ai-image-generation": {
+      "source": "inference-sh-9/skills",
+      "sourceType": "github",
+      "computedHash": "1ddd1a976e0a70b834bb175ef22382273c8223cd3d990a27f99bce4c5bd7ebd8"
+    },
+    "content-strategy": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "computedHash": "8555b8c8f98b3e84068fbad3aa24f02a0a6ac1c0a62e6f09808c37cdf10a3230"
+    },
+    "nano-banana": {
+      "source": "inference-sh-9/skills",
+      "sourceType": "github",
+      "computedHash": "91638a265753a50a8a30dfda3844462c2d3e94ca15c1f47cf8c5897e5e8fa7f4"
+    },
+    "product-marketing-context": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "computedHash": "e14cfdd2544888373d85ba4afe548dd21df1a0730485e213b5c79bb2df4f7289"
+    },
+    "seo-audit": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "computedHash": "27156d103697411bba81520fef469e77bfba4c65d904c841e4965a158d531fbd"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "9b03bb78ec5c81c4e0546dbb78cfc970368c72dcae5482e8c59690175abbc8e7"
+    },
+    "template-skill": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "38c88f722b574a922311d334a70c2008a2a5b896f06eaa75516d716e5725b26f"
+    },
+    "webapp-testing": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "cf8e5916d474886bd67b09691247f43f331523008b7d366064bc607ab42d6302"
+    }
+  }
+}
