@@ -1,0 +1,135 @@
+<section class="testimonials section-padding">
+  <div class="page-width">
+    <div class="testimonials__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="testimonials__eyebrow eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="testimonials__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="testimonials__list list-unstyled" role="list">
+        {%- for block in section.blocks -%}
+          <li class="testimonials__card" {{ block.shopify_attributes }}>
+            {%- if block.settings.rating > 0 -%}
+              <div class="testimonials__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+                {%- for i in (1..block.settings.rating) -%}★{%- endfor -%}
+                {%- assign empty_stars = 5 | minus: block.settings.rating -%}
+                {%- for i in (1..empty_stars) -%}
+                  <span class="testimonials__star--empty">☆</span>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.quote != blank -%}
+              <blockquote class="testimonials__quote">
+                <p>"{{ block.settings.quote }}"</p>
+              </blockquote>
+            {%- endif -%}
+
+            <footer class="testimonials__author">
+              {%- if block.settings.author != blank -%}
+                <cite class="testimonials__author-name">— {{ block.settings.author }}</cite>
+              {%- endif -%}
+              {%- if block.settings.author_detail != blank -%}
+                <span class="testimonials__author-detail caption">{{ block.settings.author_detail }}</span>
+              {%- endif -%}
+            </footer>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "max_blocks": 9,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Customer Stories"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Real Results, Real Nights"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "Star rating"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review text",
+          "default": "My skin is more hydrated and radiant in just 2 weeks. I wake up feeling refreshed and my skin looks amazing. Finally found a night cream that actually works!"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer name",
+          "default": "Sarah M."
+        },
+        {
+          "type": "text",
+          "id": "author_detail",
+          "label": "Detail (e.g. Verified Buyer, location)",
+          "default": "Verified Buyer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "My skin is more hydrated and radiant in just 2 weeks. I wake up feeling refreshed and my skin looks amazing. Finally found a night cream that actually works!",
+            "author": "Sarah M.",
+            "author_detail": "Verified Buyer"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "I love that this cream uses melatonin — I actually sleep better AND my skin looks better. Two problems solved with one product. Will buy again!",
+            "author": "James T.",
+            "author_detail": "Verified Buyer"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "The Lavender Oil smell is so relaxing at bedtime. My skin feels incredibly soft in the morning. I've tried so many night creams and this is the one.",
+            "author": "Maria L.",
+            "author_detail": "Verified Buyer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

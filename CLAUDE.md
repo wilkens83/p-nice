@@ -7,6 +7,62 @@ Target store: [YOUR-STORE].myshopify.com
 
 Dawn is Shopify's free, open-source Online Store 2.0 theme — lightweight, fast (Lighthouse 90+ mobile), and fully customizable.
 
+## Brand Identity
+
+**Brand name:** P-nice Wellness
+**Brand positioning:** Sleep-focused skincare — where restful sleep meets radiant skin
+**Target audience:** Adults (men and women) seeking a science-backed nighttime skincare routine
+**Brand voice:** Trustworthy, science-informed, warm, wellness-driven
+**Made in:** USA
+
+### Flagship Product — Sleep Plus Collagen Night Cream
+
+| Field | Value |
+|---|---|
+| Product name | Sleep Plus Collagen Night Cream |
+| Tagline | Infused with Hyaluronic Acid for deep hydration |
+| Size | 2 oz / 56g |
+| Price point | Premium skincare |
+| Key claim | Bio-Identical Melatonin + Collagen for overnight skin restoration |
+
+**Key Features (copy-ready):**
+1. **Hydrating Formula** — Enriched with Hyaluronic Acid, nature's "Moisture Miracle," to keep skin supple and hydrated through the night
+2. **Collagen Infused** — Helps maintain skin elasticity and smooth appearance with restorative overnight benefits
+3. **Enriched with Natural Oils** — Avocado Oil and Lavender Oil soothe and moisturize, leaving skin soft and refreshed by morning
+4. **Gentle on All Skin Types** — Suitable for men and women; gentle formula for all skin types
+
+**Full Ingredients list:**
+Purified Water, Melatonin, Aloe Vera Extract, Collagen, Hyaluronic Acid, Avocado Oil, Rheosol, Lavender Oil, Phenonip, Rosemary Leaf Extract
+
+**Suggested Use:**
+Apply ¼ tsp to face and/or neck 45 minutes to 1 hour before bedtime. Increase to ½ tsp if you wake repeatedly during the night. Each ¼ tsp contains 2.4 mg of melatonin.
+
+**Warnings (must appear on product page):**
+- For external use only. If irritation develops, discontinue use.
+- If cream enters eye, flush thoroughly with water.
+- If accidentally ingested, call a physician.
+- Do not exceed recommended dose.
+- Pregnant or nursing mothers, children under 18, and individuals with a known medical condition should consult a physician before use.
+- Keep out of reach of children. Do not use if the safety seal is damaged or missing.
+- Store in a cool, dry place.
+- This product is not intended to diagnose, treat, cure, or prevent any disease.
+
+**Science Behind the Product (for `science-facts` section):**
+
+| Claim | Source |
+|---|---|
+| Bio-Identical Melatonin resets circadian rhythm, restoring restful sleep | General wellness science |
+| Melatonin significantly enhances sleep onset latency & total sleep time | 2022 systematic review, *Journal of Neurology* |
+| Melatonin improves sleep in individuals with mental health disorders | 2023 study, *Journal of Psychiatric Research* |
+| Topical melatonin: antioxidant, anti-inflammatory, photoprotection, anti-aging | Peer-reviewed dermatology study |
+
+**Hero/CTA Copy Examples:**
+- "Wake up to radiant skin — every morning."
+- "Sleep better. Look better."
+- "Science-backed skincare that works while you rest."
+- "Your nighttime routine, elevated."
+- "Nourish your skin while you sleep."
+
 ## Tech Stack
 
 - Shopify Online Store 2.0 (Liquid templating)
@@ -71,7 +127,7 @@ Deploy to a specific environment: `shopify theme push --environment production`
 
 ```
 ├── assets/              # CSS, JS, images, fonts (served as-is)
-│   ├── base.css         # Global base styles
+│   ├── base.css         # Global base styles + P-nice Wellness brand tokens
 │   ├── component-*.css  # Per-component stylesheets
 │   └── global.js        # Global JS (cart, modals, etc.)
 ├── config/
@@ -85,25 +141,36 @@ Deploy to a specific environment: `shopify theme push --environment production`
 │   ├── header.liquid
 │   ├── footer.liquid
 │   ├── announcement-bar.liquid
-│   └── ...
+│   ├── hero-social-proof.liquid    # Hero + social proof badge (homepage)
+│   ├── brand-story.liquid          # Image + brand paragraph
+│   ├── features-grid.liquid        # 3-column features/benefits
+│   ├── dark-variant-cta.liquid     # Dark bg CTA / product selector
+│   ├── ingredients-callout.liquid  # "Powered by Nature" ingredient hero
+│   ├── science-facts.liquid        # Research-backed claims cards
+│   ├── testimonials.liquid         # Customer reviews
+│   └── cta-banner.liquid           # Closing CTA with italic quote
 ├── snippets/                  # Reusable Liquid partials ({% render 'name' %})
+│   ├── card-product.liquid         # Product card with dual ADD TO CART + BUY NOW buttons
+│   ├── social-proof-badge.liquid   # Reusable star + buyer count pill badge
+│   ├── icon-cart.liquid
+│   └── icon-close.liquid
 ├── templates/                 # JSON templates for each page type
-│   ├── index.json             # Homepage
-│   ├── product.json           # Product pages
-│   ├── collection.json        # Collection listing pages
-│   ├── cart.json              # Cart page
-│   ├── page.json              # Static pages
-│   ├── blog.json              # Blog listing
-│   ├── article.json           # Blog post
-│   └── 404.json               # 404 error page
+│   ├── index.json             # Homepage — all custom sections
+│   ├── product.json           # Product page + science-facts + ingredients
+│   ├── collection.json
+│   ├── cart.json
+│   ├── page.json
+│   ├── blog.json
+│   ├── article.json
+│   └── 404.json
 ├── .gitignore
-├── .shopifyignore             # Files excluded from Shopify CLI push
+├── .shopifyignore
 └── shopify.theme.toml         # Environment config (gitignored)
 ```
 
 ## Store Design Direction
 
-This store is a **beauty/lifestyle brand** (fragrance or skincare). The design references below define the visual language and required page sections.
+This store is a **wellness skincare brand** specializing in sleep-focused night creams. Design blends two reference aesthetics: Nathalia (elegant, warm, feminine) and Resvina (clean, science-backed, clinical-minimal).
 
 ### Design References
 
@@ -133,11 +200,15 @@ Clean, clinical-minimal aesthetic. Key patterns:
 
 ### Color System
 
+Derived from the **P-nice Wellness product label** (forest green brand mark, gold lettering, cream/teal gradient):
+
 | Token | Value | Usage |
 |---|---|---|
 | `--color-cream` | `#F8F4EE` | Primary background (warm cream) |
 | `--color-dark` | `#1A1A1A` | Primary text + dark section bg |
-| `--color-accent` | `#C9A96E` | Gold/warm accent, buttons, badges |
+| `--color-green` | `#2D5A3D` | Brand color (P-nice Wellness logo green) |
+| `--color-gold` | `#C9A96E` | Product name accent, buttons, badges |
+| `--color-teal` | `#7EC8C8` | Label accent, hover states, highlights |
 | `--color-mid` | `#6D6D6D` | Secondary text, captions |
 | `--color-white` | `#FFFFFF` | Cards, light sections |
 | `--color-badge-bg` | `#F0EAE0` | Social proof badge background |
@@ -149,25 +220,39 @@ Clean, clinical-minimal aesthetic. Key patterns:
 | Brand headlines | Serif font (e.g. Playfair Display), large scale, normal weight |
 | Section headings | Serif or elegant sans, mixed case |
 | Body text | Clean sans-serif, 1.5–1.6 line height |
-| Buttons / labels | Uppercase, sans-serif, tracked |
-| Parenthetical headings | e.g. `(Section Title)` — Resvina style |
+| Buttons / labels | Uppercase, sans-serif, tracked letter-spacing |
+| Science/research text | Smaller sans-serif, with citation styling |
+| Parenthetical headings | e.g. `(Section Title)` — Resvina style for categories |
 
 ### Required Homepage Sections (in order)
 
 | Section file | Description |
 |---|---|
-| `announcement-bar.liquid` | Promo banner at top |
-| `header.liquid` | Logo + nav + cart icon |
-| `hero-social-proof.liquid` | Large hero image, headline, subheadline, social proof badge, CTA button |
-| `brand-story.liquid` | Image (left) + brand paragraph (right), or reversed |
+| `announcement-bar.liquid` | Promo: "Free shipping on orders over $X" or discount code |
+| `header.liquid` | P-nice Wellness logo + nav + cart icon |
+| `hero-social-proof.liquid` | Full-bleed hero image, serif headline, social proof badge, "SHOP NOW" CTA |
+| `brand-story.liquid` | "Sleep better. Wake up radiant." — image left + paragraph right |
 | `featured-collection.liquid` | Product grid with dual-button cards (ADD TO CART + BUY NOW) |
-| `features-grid.liquid` | Icon/number + heading + description, 3 columns |
-| `category-tiles.liquid` | 3 category image tiles with label overlay |
-| `dark-variant-cta.liquid` | Full-width dark bg section — product variant selector or bold CTA |
-| `ingredients-callout.liquid` | "Powered by Nature" — ingredient highlight with image/icon |
-| `testimonials.liquid` | Customer review cards (horizontal scroll or grid) |
-| `cta-banner.liquid` | Full-width CTA with italic quote + uppercase button |
-| `footer.liquid` | Social icons, nav links, newsletter input, copyright |
+| `features-grid.liquid` | 3 columns: Hyaluronic Acid / Collagen / Natural Oils — icon + title + text |
+| `ingredients-callout.liquid` | "Powered by Nature, Perfected by Science" — Melatonin or Collagen hero card |
+| `science-facts.liquid` | Research-backed cards: 2022 + 2023 studies, anti-aging melatonin |
+| `dark-variant-cta.liquid` | Dark bg — "Your Nighttime Routine, Elevated" — bold CTA to product |
+| `testimonials.liquid` | "Real Results, Real Nights" — customer review cards with star ratings |
+| `cta-banner.liquid` | "Nourish your skin while you sleep." + "SHOP SLEEP PLUS" button |
+| `footer.liquid` | Newsletter, social icons, nav, copyright, "Made in USA" badge |
+
+### Product Page Sections (product.json)
+
+| Section | Purpose |
+|---|---|
+| `header.liquid` | Global header |
+| `main-product.liquid` | Title, images, price, variants, Add to Cart, Buy Now |
+| `features-grid.liquid` | Hyaluronic Acid / Collagen / Natural Oils benefits |
+| `ingredients-callout.liquid` | Full ingredients list + Suggested Use |
+| `science-facts.liquid` | Research citations for melatonin claims |
+| `testimonials.liquid` | Customer reviews for this product |
+| `cta-banner.liquid` | "Wake up to radiant skin" |
+| `footer.liquid` | Global footer |
 
 ### Product Card Conventions
 
@@ -184,11 +269,11 @@ Every product card (`snippets/card-product.liquid`) must include:
 Used in hero and potentially collection banners:
 ```liquid
 <div class="social-proof-badge">
-  <span class="social-proof-badge__icon">★</span>
-  <span class="social-proof-badge__text">Satisfied by {{ section.settings.buyer_count }} Buyers</span>
+  <span class="social-proof-badge__stars">★★★★★</span>
+  <span class="social-proof-badge__text">Satisfied by {{ section.settings.buyer_count }} Customers</span>
 </div>
 ```
-The badge is a pill/rounded shape with `--color-badge-bg` background.
+The badge is a pill/rounded shape with `--color-badge-bg` background and `--color-green` star color.
 
 ### Section Schema Conventions
 
@@ -285,15 +370,15 @@ jobs:
 
 ### Design Implementation Rules
 
-- **Color tokens** must use CSS custom properties (`--color-cream`, `--color-dark`, etc.) — never hardcode hex values in CSS outside of `:root`
+- **Color tokens** must use CSS custom properties (`--color-cream`, `--color-dark`, `--color-green`, etc.) — never hardcode hex values in CSS outside of `:root`
 - **Hero sections** always include a social proof badge (buyer count, star rating, or trust badge)
 - **Product cards** always show dual-button pattern: primary "ADD TO CART" + secondary "BUY NOW"
 - **Dark sections** (`dark-variant-cta`, footer CTA) use `--color-dark` (#1A1A1A) background with white text
 - **Headings** in hero and brand-story sections use serif font family; body and UI labels use sans-serif
-- **Testimonials** section must show customer name, review text, and optional star rating
-- **Features/benefits** blocks: use either icon + title + text (Nathalia style) or numbered `(1) (2) (3)` format (Resvina style) — choose one per project
-- **Category tiles** use image backgrounds with text overlay; never plain text links
+- **Testimonials** section must show customer name, review text, and star rating
+- **Features/benefits** blocks use icon + title + text format (3 columns)
+- **Science facts** section uses card format with study citation and summary text
+- **Ingredients** section must list all ingredients and include Suggested Use + Warnings
 - **CTA banners** use italic or serif quote text paired with an uppercase button label
-- **Footer** must include: brand name/logo, nav links, social icons (Instagram, Facebook, TikTok at minimum), copyright
-- **Newsletter** input in footer if targeting skincare/subscription audience
+- **Footer** must include: P-nice Wellness brand name, nav links, social icons (Instagram, Facebook, TikTok at minimum), newsletter input, "Made in USA" trust badge, copyright
 - Sections must be fully configurable from the Shopify customizer — zero hardcoded copy in Liquid

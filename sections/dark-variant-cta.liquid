@@ -1,0 +1,106 @@
+<section class="dark-cta" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="dark-cta__inner page-width">
+    <div class="dark-cta__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="dark-cta__eyebrow eyebrow" style="color: {{ section.settings.accent_color }};">
+          {{ section.settings.eyebrow }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="dark-cta__heading" style="color: {{ section.settings.text_color }};">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="dark-cta__subtext">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          href="{{ section.settings.button_link | default: routes.root_url }}"
+          class="button dark-cta__button"
+          style="background-color: {{ section.settings.accent_color }}; color: #ffffff;"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.image != blank -%}
+      <div class="dark-cta__media">
+        {{ section.settings.image | image_url: width: 600 | image_tag:
+          loading: 'lazy',
+          widths: '300, 450, 600',
+          class: 'dark-cta__image'
+        }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Dark CTA section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / button color",
+      "default": "#C9A96E"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "THE SCIENCE OF SLEEP SKINCARE"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Nighttime Routine, Elevated."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Supporting text",
+      "default": "While you sleep, Sleep Plus Collagen Cream works — restoring skin with Bio-Identical Melatonin, Collagen, and Hyaluronic Acid. Wake up to visibly softer, more radiant skin."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "SHOP SLEEP PLUS NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image (optional)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dark CTA section"
+    }
+  ]
+}
+{% endschema %}

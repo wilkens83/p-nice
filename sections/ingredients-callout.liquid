@@ -1,0 +1,125 @@
+<section class="ingredients section-padding">
+  <div class="page-width">
+    <div class="ingredients__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ingredients__eyebrow eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="ingredients__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="ingredients__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="ingredients__body">
+      {%- if section.settings.featured_ingredient_name != blank -%}
+        <div class="ingredients__hero-card">
+          {%- if section.settings.ingredient_image != blank -%}
+            <div class="ingredients__hero-image">
+              {{ section.settings.ingredient_image | image_url: width: 400 | image_tag:
+                loading: 'lazy',
+                widths: '200, 300, 400',
+                class: 'ingredients__img'
+              }}
+            </div>
+          {%- else -%}
+            <div class="ingredients__hero-icon" aria-hidden="true">🌿</div>
+          {%- endif -%}
+          <div class="ingredients__hero-text">
+            <h3 class="ingredients__hero-name">{{ section.settings.featured_ingredient_name }}</h3>
+            {%- if section.settings.featured_ingredient_desc != blank -%}
+              <p class="ingredients__hero-desc">{{ section.settings.featured_ingredient_desc }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.full_list != blank -%}
+        <div class="ingredients__full-list">
+          <h3 class="ingredients__list-heading">Full Ingredients</h3>
+          <p class="ingredients__list-text">{{ section.settings.full_list }}</p>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.usage != blank -%}
+        <div class="ingredients__usage">
+          <h3 class="ingredients__usage-heading">Suggested Use</h3>
+          <p class="ingredients__usage-text">{{ section.settings.usage }}</p>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.warning != blank -%}
+        <div class="ingredients__warning">
+          <p class="ingredients__warning-text caption">{{ section.settings.warning }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredients callout",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "What's Inside"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Powered by Nature, Perfected by Science"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Every ingredient in Sleep Plus was chosen to support your skin while you sleep."
+    },
+    {
+      "type": "text",
+      "id": "featured_ingredient_name",
+      "label": "Featured ingredient name",
+      "default": "Bio-Identical Melatonin"
+    },
+    {
+      "type": "textarea",
+      "id": "featured_ingredient_desc",
+      "label": "Featured ingredient description",
+      "default": "Described as the \"sleep hormone,\" melatonin declines with age. Applied topically, it acts as a powerful antioxidant with proven anti-aging and photoprotective benefits."
+    },
+    {
+      "type": "image_picker",
+      "id": "ingredient_image",
+      "label": "Featured ingredient image"
+    },
+    {
+      "type": "textarea",
+      "id": "full_list",
+      "label": "Full ingredients list",
+      "default": "Purified Water, Melatonin, Aloe Vera Extract, Collagen, Hyaluronic Acid, Avocado Oil, Rheosol, Lavender Oil, Phenonip, Rosemary Leaf Extract"
+    },
+    {
+      "type": "textarea",
+      "id": "usage",
+      "label": "Suggested use",
+      "default": "Apply ¼ tsp to face and/or neck 45 minutes to 1 hour before bedtime. Increase to ½ tsp if you wake repeatedly during the night. Each ¼ tsp contains 2.4 mg of melatonin."
+    },
+    {
+      "type": "textarea",
+      "id": "warning",
+      "label": "Warnings",
+      "default": "For external use only. Do not use if the safety seal is damaged or missing. Store in a cool, dry place. Keep out of reach of children. Pregnant or nursing mothers, children under 18, and individuals with a known medical condition should consult a physician before use. This product is not intended to diagnose, treat, cure, or prevent any disease."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients callout"
+    }
+  ]
+}
+{% endschema %}

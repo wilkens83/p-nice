@@ -1,0 +1,137 @@
+<section class="hero{% if section.settings.image != blank %} hero--has-image{% endif %}">
+  {%- if section.settings.image != blank -%}
+    <div class="hero__media">
+      {{ section.settings.image | image_url: width: 1800 | image_tag:
+        loading: 'eager',
+        fetchpriority: 'high',
+        widths: '375, 550, 750, 1100, 1500, 1800',
+        class: 'hero__image'
+      }}
+      <div class="hero__overlay" style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"></div>
+    </div>
+  {%- endif -%}
+
+  <div class="hero__content page-width hero__content--{{ section.settings.text_alignment }}">
+    {%- if section.settings.subheading != blank -%}
+      <p class="hero__subheading eyebrow">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h1 class="hero__heading">{{ section.settings.heading }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <p class="hero__description">{{ section.settings.description }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.show_social_proof -%}
+      <div class="social-proof-badge">
+        <span class="social-proof-badge__stars" aria-label="5 stars">★★★★★</span>
+        <span class="social-proof-badge__text">
+          Satisfied by <strong>{{ section.settings.buyer_count }}</strong> Customers
+        </span>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.trust_badge != blank -%}
+      <div class="hero__trust-badge">
+        <span class="hero__trust-icon">✓</span>
+        {{ section.settings.trust_badge }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <a
+        href="{{ section.settings.button_link | default: routes.root_url }}"
+        class="button hero__cta"
+      >
+        {{ section.settings.button_label }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero with social proof",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Eyebrow / subheading",
+      "default": "P-nice Wellness"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "Wake Up to Radiant Skin — Every Morning."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Sleep Plus Collagen Night Cream nourishes your skin while you rest, powered by Bio-Identical Melatonin, Collagen, and Hyaluronic Acid."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_proof",
+      "label": "Show social proof badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "buyer_count",
+      "label": "Buyer count (displayed in badge)",
+      "default": "10,000+"
+    },
+    {
+      "type": "text",
+      "id": "trust_badge",
+      "label": "Trust badge text",
+      "default": "99% Natural Ingredients · Made in USA"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "SHOP SLEEP PLUS"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero with social proof"
+    }
+  ]
+}
+{% endschema %}

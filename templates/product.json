@@ -3,7 +3,144 @@
     "main": {
       "type": "main-product",
       "settings": {}
+    },
+    "features": {
+      "type": "features-grid",
+      "settings": {
+        "eyebrow": "Key Benefits",
+        "heading": "What Makes Sleep Plus Different",
+        "subheading": ""
+      },
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "💧",
+            "heading": "Hydrating Formula",
+            "text": "Hyaluronic Acid keeps skin supple and hydrated through the night."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "✨",
+            "heading": "Collagen Infused",
+            "text": "Supports skin elasticity and smooth appearance overnight."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "🌿",
+            "heading": "Natural Oils",
+            "text": "Avocado Oil and Lavender Oil soothe, leaving skin soft by morning."
+          }
+        }
+      },
+      "blocks_order": ["f1", "f2", "f3"]
+    },
+    "ingredients": {
+      "type": "ingredients-callout",
+      "settings": {
+        "eyebrow": "Full Transparency",
+        "heading": "Powered by Nature, Perfected by Science",
+        "subheading": "",
+        "featured_ingredient_name": "Bio-Identical Melatonin",
+        "featured_ingredient_desc": "Applied topically, melatonin acts as a powerful antioxidant with proven anti-aging and photoprotective benefits — while helping you sleep better.",
+        "full_list": "Purified Water, Melatonin, Aloe Vera Extract, Collagen, Hyaluronic Acid, Avocado Oil, Rheosol, Lavender Oil, Phenonip, Rosemary Leaf Extract",
+        "usage": "Apply 1/4 tsp to face and/or neck 45 minutes to 1 hour before bedtime. Increase to 1/2 tsp if you wake repeatedly during the night. Each 1/4 tsp contains 2.4 mg of melatonin.",
+        "warning": "For external use only. If irritation develops discontinue use. Do not use if the safety seal is damaged or missing. Store in a cool, dry place. Keep out of reach of children. Pregnant or nursing mothers, children under 18, and individuals with a known medical condition should consult a physician before use. This product is not intended to diagnose, treat, cure, or prevent any disease."
+      }
+    },
+    "science": {
+      "type": "science-facts",
+      "settings": {
+        "eyebrow": "Research-Backed",
+        "heading": "The Science Behind Sleep Plus",
+        "subheading": ""
+      },
+      "blocks": {
+        "s1": {
+          "type": "fact",
+          "settings": {
+            "icon": "🌙",
+            "title": "Bio-Identical Melatonin",
+            "text": "Melatonin declines with age. Topical melatonin helps reset the body's circadian rhythm and acts as a powerful skin antioxidant.",
+            "citation": ""
+          }
+        },
+        "s2": {
+          "type": "fact",
+          "settings": {
+            "icon": "📋",
+            "title": "Clinically Supported Sleep Benefits",
+            "text": "A 2022 meta-analysis shows melatonin supplementation significantly enhances sleep onset latency and total sleep time in individuals with sleep disorders.",
+            "citation": "Journal of Neurology, 2022"
+          }
+        },
+        "s3": {
+          "type": "fact",
+          "settings": {
+            "icon": "🧬",
+            "title": "Topical Anti-Aging Benefits",
+            "text": "Topically applied melatonin demonstrates antioxidant and anti-inflammatory properties, with potential for photoprotection and anti-aging skin effects.",
+            "citation": "Peer-reviewed dermatology study"
+          }
+        }
+      },
+      "blocks_order": ["s1", "s2", "s3"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "eyebrow": "Customer Reviews",
+        "heading": "What Our Customers Say"
+      },
+      "blocks": {
+        "r1": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "My skin is more hydrated and radiant in just 2 weeks. I wake up feeling refreshed and my skin looks amazing!",
+            "author": "Sarah M.",
+            "author_detail": "Verified Buyer"
+          }
+        },
+        "r2": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "I sleep better AND my skin looks better. Two problems solved with one product.",
+            "author": "James T.",
+            "author_detail": "Verified Buyer"
+          }
+        },
+        "r3": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "The Lavender Oil smell is so relaxing. My skin feels incredibly soft in the morning.",
+            "author": "Maria L.",
+            "author_detail": "Verified Buyer"
+          }
+        }
+      },
+      "blocks_order": ["r1", "r2", "r3"]
+    },
+    "cta": {
+      "type": "cta-banner",
+      "settings": {
+        "bg_color": "#2D5A3D",
+        "heading_color": "#FFFFFF",
+        "text_color": "#C9A96E",
+        "button_bg": "#C9A96E",
+        "button_text_color": "#1A1A1A",
+        "quote": "Your skin deserves to rest and recover.",
+        "heading": "Add Sleep Plus to Your Routine Tonight.",
+        "subtext": "2 oz / 56g — Made in USA — Suitable for all skin types",
+        "button_label": "ADD TO CART"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "features", "ingredients", "science", "testimonials", "cta"]
 }

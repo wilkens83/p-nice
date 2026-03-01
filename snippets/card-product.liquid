@@ -1,8 +1,8 @@
 {% comment %}
-  Renders a product card.
+  Renders a product card with dual-button pattern.
 
   Accepts:
-  - card_product: {Object} Product object
+  - card_product: {Object} Product object (required)
   - lazy_load: {Boolean} Use lazy loading on images (default: true)
 
   Usage:
@@ -12,39 +12,44 @@
 {%- unless card_product == blank -%}
   <div class="card-wrapper">
     <article class="card card--product" aria-label="{{ card_product.title | escape }}">
-      <div class="card__inner">
-        <a href="{{ card_product.url }}" class="card__link">
-          <div class="card__media">
-            {%- if card_product.featured_media -%}
-              {{ card_product.featured_media | image_url: width: 500 | image_tag:
-                lazy_load: lazy_load | default: true,
-                widths: '200, 300, 400, 500',
-                class: 'motion-reduce'
-              }}
-            {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-            {%- endif -%}
-          </div>
-        </a>
 
-        {%- if card_product.compare_at_price > card_product.price -%}
-          <div class="card__badge">
-            <span class="badge badge--bottom-left">{{ 'products.product.sale_badge' | t }}</span>
-          </div>
+      {%- comment -%} Badges {%- endcomment -%}
+      <div class="card__badges">
+        {%- if card_product.available == false -%}
+          <span class="badge badge--sold-out">Sold out</span>
+        {%- elsif card_product.compare_at_price > card_product.price -%}
+          <span class="badge badge--sale">Sale</span>
         {%- endif -%}
       </div>
 
+      {%- comment -%} Product image {%- endcomment -%}
+      <a href="{{ card_product.url }}" class="card__media-link" tabindex="-1" aria-hidden="true">
+        <div class="card__media">
+          {%- if card_product.featured_media -%}
+            {{ card_product.featured_media | image_url: width: 600 | image_tag:
+              loading: lazy_load | default: 'lazy',
+              widths: '200, 300, 400, 600',
+              class: 'card__image motion-reduce',
+              alt: card_product.featured_media.alt | escape
+            }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg card__image' }}
+          {%- endif -%}
+        </div>
+      </a>
+
+      {%- comment -%} Card info {%- endcomment -%}
       <div class="card__content">
         <div class="card__information">
           <h3 class="card__heading">
-            <a href="{{ card_product.url }}" class="full-unstyled-link">
+            <a href="{{ card_product.url }}" class="card__title-link full-unstyled-link">
               {{ card_product.title | escape }}
             </a>
           </h3>
 
           <div class="card__price">
             {%- if card_product.price_varies -%}
-              <span class="price">{{ 'products.general.from' | t: price: card_product.price_min | money }}</span>
+              <span class="price">From {{ card_product.price_min | money }}</span>
             {%- else -%}
               <span class="price">{{ card_product.price | money }}</span>
             {%- endif -%}
@@ -52,14 +57,37 @@
               <s class="price price--compare">{{ card_product.compare_at_price | money }}</s>
             {%- endif -%}
           </div>
-
-          {%- if card_product.available == false -%}
-            <div class="card__badge">
-              <span class="badge">{{ 'products.general.sold_out' | t }}</span>
-            </div>
-          {%- endif -%}
         </div>
+
+        {%- comment -%} Dual-button pattern: ADD TO CART + BUY NOW {%- endcomment -%}
+        {%- if card_product.available -%}
+          <div class="card__buttons">
+            <form action="{{ routes.cart_add_url }}" method="post" class="card__atc-form">
+              <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              <button
+                type="submit"
+                class="button button--primary card__atc-button"
+                aria-label="Add {{ card_product.title | escape }} to cart"
+              >
+                ADD TO CART
+              </button>
+            </form>
+            <a
+              href="{{ card_product.url }}"
+              class="button button--secondary card__buy-button"
+              aria-label="View {{ card_product.title | escape }}"
+            >
+              BUY NOW
+            </a>
+          </div>
+        {%- else -%}
+          <div class="card__buttons">
+            <button class="button button--disabled card__atc-button" disabled>Sold out</button>
+          </div>
+        {%- endif -%}
       </div>
+
     </article>
   </div>
 {%- endunless -%}
